@@ -12,6 +12,8 @@ public class Server {
             System.out.println("Server is running...");
 
             while (true) {
+                System.out.println("Listening...");
+
                 Socket handler = serverSocket.accept();
 
                 InputStream in = handler.getInputStream();
@@ -21,7 +23,7 @@ public class Server {
                 System.out.println("Received: " + request);
 
                 String response = request.toUpperCase();
-                System.out.println("Sending..." + response);
+                System.out.println("Sending: " + response);
 
                 OutputStream out = handler.getOutputStream();
                 PrintWriter writer = new PrintWriter(out, true);
