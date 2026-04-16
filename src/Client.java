@@ -33,12 +33,12 @@ public class Client {
             System.out.print("Enter message: ");
             String message1 = scanner.nextLine();
 
-            System.out.println("Sending: " + message1);
-
             OutputStream out = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(out, true);
             String encrypted = encrypt(message1, key, iv);  // Ecnrypt before sending
             writer.println(encrypted);
+            System.out.println("Sending: " + message1);
+            System.out.println("Sending (encrypted): " + encrypted);
 
             System.out.println("Waiting for response...");
 
@@ -47,7 +47,8 @@ public class Client {
 
             String encryptedResp = reader.readLine();
             String decrypted = decrypt(encryptedResp, key, iv); // Decrypt after receiving
-            System.out.println("Received: " + decrypted);
+            System.out.println("Received: " + encryptedResp);
+            System.out.println("Received (decrypted): " + decrypted);
 
             socket.close();
         } catch (Exception e) {

@@ -5,7 +5,6 @@ import java.util.Scanner;
 // Cryptography Stuff
 import javax.crypto.*;
 import javax.crypto.spec.*;
-import java.security.*;
 import java.util.Base64;
 
 public class Server {
@@ -42,15 +41,16 @@ public class Server {
 
                 String encryptedReq = reader.readLine();
                 String request = decrypt(encryptedReq, key, iv);    // Decrypt after receiving
+                System.out.println("Received: " + encryptedReq);
                 System.out.println("Received (decrypted): " + request);
 
                 String response = request.toUpperCase();
-                System.out.println("Sending: " + response);
-
                 OutputStream out = handler.getOutputStream();
                 PrintWriter writer = new PrintWriter(out, true);
-                String encryptedResponse = encrypt(response, key, iv);  // Encrypt before sending
-                writer.println(encryptedResponse);
+                String encryptedResp = encrypt(response, key, iv);  // Encrypt before sending
+                writer.println(encryptedResp);
+                System.out.println("Sending: " + response);
+                System.out.println("Sending (encrypted): " + encryptedResp);
 
                 handler.close();
             }
